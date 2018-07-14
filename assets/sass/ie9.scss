@@ -3,40 +3,48 @@
 @import 'libs/mixins';
 @import 'libs/skel';
 
-/* BG */
+/* Loader */
 
-	#bg {
-		&:before {
-			background: _palette(bg-overlay);
+	body.landing {
+		&:before, &:after {
+			display: none !important;
 		}
 	}
 
-/* Header */
+/* Icon */
 
-	#header {
-		.logo {
-			margin: 0 auto;
+	.icon {
+		&.alt {
+			color: inherit !important;
 		}
 
-		.content {
-			display: inline-block;
-		}
-
-		nav {
-			ul {
-				display: inline-block;
-
-				 li {
-				 	display: inline-block;
-				 }
+		&.major {
+			&.alt {
+				&:before {
+					color: _palette(fg-bold) !important;
+				}
 			}
 		}
 	}
 
-/* Main */
+/* Banner */
 
-	#main {
-		article {
-			margin: 0 auto;
+	#banner {
+		&:after {
+			background-color: _palette(bg-transparent);
+		}
+	}
+
+/* Footer */
+
+	#footer {
+		.icons {
+			.icon {
+				&.alt {
+					&:before {
+						color: _palette(fg-bold) !important;
+					}
+				}
+			}
 		}
 	}
