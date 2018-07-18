@@ -4002,7 +4002,7 @@
 
 	#whatsapp {
 		position: fixed;
-		bottom: 10px;
+		bottom: 0;
 		right: 10px;
 		color: white;
 		text-decoration: none !important;
