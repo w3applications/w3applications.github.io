@@ -28,10 +28,10 @@
             $.ajax({
                 url: 'https://helper-apis.appspot.com/v1/contact/',
                 type: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                //headers: { 'Content-Type': 'application/json' },
                 data: { contact: JSON.stringify(contact) },
                 success: function (data) {
-                    window.location = "ThankYou";
+                    window.location = "https://w3applications.com/ThankYou";
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR.responseText);
