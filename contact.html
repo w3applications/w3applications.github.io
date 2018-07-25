@@ -29,10 +29,10 @@
                 url: 'https://helper-apis.appspot.com/v1/contact/',
                 type: 'POST',
                 //headers: { 'Content-Type': 'application/json' },
-                contentType: 'application/json; charset=utf-8',
+                contentType: 'application/json',
                 dataType: 'json',
-                data: { contact: JSON.stringify(contact) },
-                success: function (data) {
+                data: JSON.stringify({ contact: contact }),
+                success: function () {
                     window.location = "https://w3applications.com/ThankYou";
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
