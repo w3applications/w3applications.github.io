@@ -28,7 +28,7 @@
             $.ajax({
                 url: 'https://helper-apis.appspot.com/v1/contact/',
                 type: 'POST',
-                //headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'Origin': 'https://w3applications.com' },
                 data: { contact: JSON.stringify(contact) },
                 success: function (data) {
                     window.location = "https://w3applications.com/ThankYou";
