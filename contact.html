@@ -13,41 +13,59 @@
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 
         <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/notify.min.js"></script>
 
         <script lang="text/javascript">
 
-        function sendEmail() {
-            var email = $("#email").val();
-            var name = $("#name").val();
-            var message = $("#message").val();
-            var contact = {
-                'fullName': name,
-                'email': email,
-                'message': message
-            };
+            $(document).ready(function () {
+                window.sendEmail = function () {
+                    var email = $("#email").val();
+                    var name = $("#name").val();
+                    var message = $("#message").val();
+                    var contact = {
+                        'fullName': name,
+                        'email': email,
+                        'message': message
+                    };
 
-            if (!email || !name || !message) {
-                $.notify("All fields required!", { globalPosition: 'bottom right', className: 'error' });
-                return;
-            }
+                    var valid = true;
 
-            $("input[type=button]").attr("disabled", "disabled");
+                    if (!name) {
+                        $("#name").notify("Please enter a name", { globalPosition: 'bottom right', className: 'error' });
+                        valid = true;
+                    }
 
-            $.ajax({
-                url: 'https://helper-apis.appspot.com/v1/contact/',
-                type: 'POST',
-                contentType: 'application/json',
-                dataType: 'json',
-                data: JSON.stringify({ contact: contact }),
-                success: function () {
-                    window.location = "https://w3applications.com/thankyou";
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR.responseText);
+                    if (!email) {
+                        $("#email").notify("Please enter an email", { globalPosition: 'bottom right', className: 'error' });
+                        valid = true;
+                    }
+
+                    if (!message) {
+                        $("#message").notify("Please enter a message", { globalPosition: 'bottom right', className: 'error' });
+                        valid = true;
+                    }
+
+                    if (!valid) {
+                        return;
+                    }
+
+                    $("input[type=button]").prop("disabled", true);
+
+                    $.ajax({
+                        url: 'https://helper-apis.appspot.com/v1/contact/',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        data: JSON.stringify({ contact: contact }),
+                        success: function () {
+                            window.location = "https://w3applications.com/thankyou";
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("input[type=button]").prop("disabled", false);
+                            console.log(jqXHR.responseText);
+                        }
+                    });
                 }
             });
-        }
         
         </script>
 
@@ -163,12 +181,13 @@
         </script>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
+			<!-- <script src="assets/js/jquery.min.js"></script> -->
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/jquery.dropotron.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
+            <script src="assets/js/util.js"></script>
+            <script src="assets/js/notify.min.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
 
