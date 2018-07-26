@@ -1,0 +1,10 @@
+
+/* Spotlight */
+
+	.spotlight .row {
+		display: block;
+	}
+
+	.spotlight h2 {
+		margin-top: 2em;
+	}

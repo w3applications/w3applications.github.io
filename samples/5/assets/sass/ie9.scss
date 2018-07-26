@@ -1,0 +1,16 @@
+@import 'libs/vars';
+@import 'libs/functions';
+@import 'libs/mixins';
+@import 'libs/skel';
+
+/* Spotlight */
+
+	.spotlight {
+		.row {
+			@include vendor('display', 'block');
+		}
+
+		h2 {
+			margin-top: _size(element-margin);
+		}
+	}
