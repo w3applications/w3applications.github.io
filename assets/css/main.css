@@ -4013,3 +4013,12 @@
 			visibility: hidden;
 		}
 	}
+
+::selection {
+	color: #ffffff;
+	background: #cb0000; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+	color: #ffffff;
+	background: #cb0000; /* Gecko Browsers */
+}
