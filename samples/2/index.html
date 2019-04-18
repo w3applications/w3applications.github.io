@@ -6,9 +6,62 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="assets/js/jquery.min.js"></script>
 
+		<script lang="text/javascript">
 
+            $(document).ready(function () {
+                window.sendEmail = function () {
+                    var email = $("#email").val();
+                    var name = $("#name").val();
+                    var message = $("#message").val();
+                    var contact = {
+                        'fullName': name,
+                        'email': email,
+                        'message': message
+                    };
 
+                    var valid = true;
+
+                    if (!name) {
+                        $("#name").notify("Please enter a name", { globalPosition: 'bottom right', className: 'error' });
+                        valid = true;
+                    }
+
+                    if (!email) {
+                        $("#email").notify("Please enter an email", { globalPosition: 'bottom right', className: 'error' });
+                        valid = true;
+                    }
+
+                    if (!message) {
+                        $("#message").notify("Please enter a message", { globalPosition: 'bottom right', className: 'error' });
+                        valid = true;
+                    }
+
+                    if (!valid) {
+                        return;
+                    }
+
+                    $("input[type=button]").prop("disabled", true);
+
+                    $.ajax({
+                        url: 'https://helper-apis.appspot.com/v1/contact/',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        data: JSON.stringify({ contact: contact }),
+                        success: function () {
+                            window.location = "https://w3applications.com/thankyou";
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("input[type=button]").prop("disabled", false);
+                            console.log(jqXHR.responseText);
+                        }
+                    });
+                }
+            });
+        
+        </script>
 
 		<!-- Global site tag (gtag.js) - Google AdWords: 855491325 -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=AW-855491325"></script>
@@ -209,7 +262,7 @@
 									</div>
 								</div>
 								<ul class="actions special">
-									<li><button class="button next" type="submit">Send Message</button></li>
+									<li><button class="button next" type="button" onclick="sendEmail()">Send Message</button></li>
 								</ul>
 							</form>
 						</div>
@@ -218,12 +271,11 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<ul class="icons">
-							<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
-							<li><a href="#" class="icon alt fa-phone"><span class="label">Phone</span></a></li>
-							<li><a href="#" class="icon alt fa-envelope-o"><span class="label">Email</span></a></li>
+							<li><a href="https://twitter.com/W3Applications" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="https://facebook.com/W3ApplicationsInc" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="https://www.instagram.com/w3applications" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+							<!-- <li><a href="#" class="icon alt fa-phone"><span class="label">Phone</span></a></li> -->
+							<li><a href="mailto:contact@w3applications.com" class="icon alt fa-envelope-o"><span class="label">Email</span></a></li>
 						</ul>
 						<p class="copyright">&copy; W3 Applications Inc. All rights reserved.</p>
 					</footer>
@@ -244,7 +296,6 @@
 			</script>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.dropotron.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
@@ -252,6 +303,7 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="../../assets/js/notify.min.js"></script>
 
 	</body>
 </html>

@@ -11,8 +11,62 @@
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
+		<script src="assets/js/jquery.min.js"></script>
 
+		<script lang="text/javascript">
 
+            $(document).ready(function () {
+                window.sendEmail = function () {
+                    var email = $("#email").val();
+                    var name = $("#name").val();
+                    var message = $("#message").val();
+                    var contact = {
+                        'fullName': name,
+                        'email': email,
+                        'message': message
+                    };
+
+                    var valid = true;
+
+                    if (!name) {
+                        $("#name").notify("Please enter a name", { globalPosition: 'bottom right', className: 'error' });
+                        valid = true;
+                    }
+
+                    if (!email) {
+                        $("#email").notify("Please enter an email", { globalPosition: 'bottom right', className: 'error' });
+                        valid = true;
+                    }
+
+                    if (!message) {
+                        $("#message").notify("Please enter a message", { globalPosition: 'bottom right', className: 'error' });
+                        valid = true;
+                    }
+
+                    if (!valid) {
+                        return;
+                    }
+
+                    $("input[type=button]").prop("disabled", true);
+
+                    $.ajax({
+                        url: 'https://helper-apis.appspot.com/v1/contact/',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        data: JSON.stringify({ contact: contact }),
+                        success: function () {
+                            window.location = "https://w3applications.com/thankyou";
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("input[type=button]").prop("disabled", false);
+                            console.log(jqXHR.responseText);
+                        }
+                    });
+                }
+            });
+        
+        </script>
 
 		<!-- Global site tag (gtag.js) - Google AdWords: 855491325 -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=AW-855491325"></script>
@@ -187,7 +241,7 @@
 								</div>
 								<div class="12u$">
 									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="special" /></li>
+										<li><input type="button" onclick="sendEmail()" value="Send Message" class="special" /></li>
 										<li><input type="reset" value="Reset" /></li>
 									</ul>
 								</div>
@@ -200,35 +254,30 @@
 							<li>
 								<span class="icon-wrapper"><span class="icon fa-envelope"></span></span>
 								<h3>Email</h3>
-								<p><a href="#">information@untitled.tld</a></p>
+								<p><a href="mailto:contact@w3applications.com">contact@w3applications.com</a></p>
 							</li>
 							<li>
 								<span class="icon-wrapper"><span class="icon fa-twitter"></span></span>
 								<h3>Twitter</h3>
-								<p><a href="#">twitter.com/untitled-tld</a></p>
+								<p><a href="https://twitter.com/W3Applications">twitter.com/W3Applications</a></p>
 							</li>
 							<li>
 								<span class="icon-wrapper"><span class="icon fa-phone"></span></span>
 								<h3>Phone</h3>
-								<p>(800) 555-0000</p>
+								<p>(647) 697-3555</p>
 							</li>
 							<li>
 								<span class="icon-wrapper"><span class="icon fa-facebook"></span></span>
 								<h3>Facebook</h3>
-								<p><a href="#">facebook.com/untitled-tld</a></p>
+								<p><a href="https://facebook.com/W3ApplicationsInc">facebook.com/W3ApplicationsInc</a></p>
 							</li>
 							<li>
 								<span class="icon-wrapper"><span class="icon fa-home"></span></span>
 								<h3>Mailing Address</h3>
-								<p>1234 Fictional Avenue<br />
-								Toronto, ON 1X2 A0B<br />
+								<p>5700 Yonge Street, Suite 200<br />
+								Toronto, ON M2M 4K2<br />
 								Canada
 								</p>
-							</li>
-							<li>
-								<span class="icon-wrapper"><span class="icon fa-linkedin"></span></span>
-								<h3>LinkedIn</h3>
-								<p><a href="#">linkedin.com/untitled-tld</a></p>
 							</li>
 						</ul>
 					</section>
@@ -268,6 +317,7 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script src="../../assets/js/notify.min.js"></script>
 
 	</body>
 </html>
